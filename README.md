@@ -38,3 +38,8 @@ Run `main.py` (make sure it's in the same directory as gesture_recognizer.task)
 * Rock sign - Toggle distortion
  
 For the pointing up gesture, the effects controlled by the x and y coordinates of the tip of the pointer finger can be customized by simply changing the plugins on tracks 2 and 3 on the mixer. The distortion effect can also be replaced.
+
+## How it works
+sound-bending uses MediaPipe for Python to track hand landmarks through the webcam video stream. It recognizes the gestures the user is making with their hands, and responds by sending signals to FL Studio. FL Studio allows for MIDI scripting, which is why loopMIDI is required. loopMIDI creates the MIDI port to act as a connected MIDI controller. The Python program sends MIDI signals with the channel, note, and velocity values as vessels for data to manipulate the FL Studio script——like whether to record or add reverb/delay and how much.
+
+This project was made in a few days after being inspired from revisiting Imogen Heap's Tiny Desk performance. I hope to expand on it soon after experimenting with it some more.
