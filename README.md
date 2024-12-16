@@ -28,7 +28,6 @@ Activate Track 1 on the mixer as microphone input.
 Run `main.py` (make sure it's in the same directory as gesture_recognizer.task)
 
 ## Features
----
 ### Hand Gestures
 * Peace sign - Toggle recording
 * Open palm - Undo most recent action
