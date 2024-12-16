@@ -25,7 +25,7 @@ Open `template.flp`
 In the FL Studio menu, navigate to `Options`>`MIDI Settings` and enable `loopMIDI Port` in the input menu. Select `sound_bending` in the controller type dropdown box.
 Activate Track 1 on the mixer as microphone input.
 
-Run `main.py`
+Run `main.py` (make sure it's in the same directory as gesture_recognizer.task)
 
 ## Features
 ---
