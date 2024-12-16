@@ -43,7 +43,8 @@ def toggle_record():
     if time.time() - last_record_time >= DEBOUNCE:
         last_record_time = time.time()
         with recording_lock:
-            midi.send(mido.Message("note_off", channel=1))
+            val = 1 if recording else 0
+            midi.send(mido.Message("note_off", channel=1, note=val))
             # ^ channel 1 indicates toggle record, channel 2 undo, etc.
 
 def undo():
@@ -67,6 +68,9 @@ def distortion():
     Toggle distortion.
     """
     midi.send(mido.Message("note_off", channel=4))
+
+def toggle_loop():
+    midi.send(mido.Message("note_off", channel=5))
 
 # main gesture recognizer class
 class GestureRecognizer:
@@ -116,6 +120,7 @@ class GestureRecognizer:
         finally:
             cap.release()
             cv2.destroyAllWindows()
+            exit(0)
 
     def process_frame(self, frame, hands, recognizer, timestamp):
         """
@@ -234,6 +239,8 @@ class GestureRecognizer:
                             distortion()
                     elif distorting:
                         distorting = False
+
+                    toggle_loop()
 
                     self.current_gestures.append(gesture_name)
 
