@@ -5,19 +5,30 @@ import transport
 import mixer
 import general
 import time
+from random import randrange
 
 count = 0
 record_start = 0
 
+def random_color():
+    """
+    Encode ARGB values into FL Studio color integer.
+    """
+    red, green, blue = randrange(256), randrange(256), randrange(256)
+    color = (255 << 24) | (red << 16) | (green << 8) | blue
+    if color > 0x7FFFFFFF:  # convert to signed 32-bit
+        color -= 0x100000000
+    return color
+
 def recording():
     """
-    Returns True if currently recording.
-    Returns False if not.
+    Return True if currently recording.
+    Return False if not.
     """
     global count
     return count % 2 == 1
 
-def toggle_record(toggle, change_time=True):
+def toggle_record(toggle, change_time=True, change_color=True):
     """
     Toggle audio recording.
     """
@@ -30,8 +41,13 @@ def toggle_record(toggle, change_time=True):
     if count == 0:
         transport.start() # play track if this is first recording
     count += 1
+
     if change_time:
         record_start = time.time()
+
+    if toggle == 1 and change_color:
+        mixer.setTrackColor(1, random_color())
+
     print("Toggled recording.")
 
 def undo():
@@ -62,9 +78,9 @@ def toggle_loop():
     song_pos = transport.getSongPos(0)
     song_len = transport.getSongLength(0)
     if count > 1 and recording() and song_pos >= song_len: # if end of loop reached
-        toggle_record(0, False)
+        toggle_record(0, False, False)
         transport.setSongPos(0.0)
-        toggle_record(1, False) # wrap around to beginning of loop
+        toggle_record(1, False, False) # wrap around to beginning of loop
 
 def record_cutoff():
     """
@@ -82,6 +98,7 @@ def OnMidiMsg(event):
     if event.midiId == midi.MIDI_NOTEOFF:
         channel = event.status & 0x0F
         if channel == 1:
+            print("Toggle: " + str(event.note))
             toggle_record(event.note) # note of 0 = stop record, 1 = start record
         elif channel == 2:
             undo()
