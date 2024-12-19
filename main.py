@@ -29,6 +29,7 @@ undoing = False
 distorting = False
 reverb = 0
 delay = 0
+pan = 0
 last_record_time = 0
 last_undo_time = 0
 recording_lock = threading.Lock()
@@ -52,6 +53,7 @@ def undo():
     Undo most recent action.
     """
     global last_undo_time
+
     if time.time() - last_undo_time >= DEBOUNCE:
         last_undo_time = time.time()
         midi.send(mido.Message("note_off", channel=2))
@@ -63,14 +65,20 @@ def secret_finger():
     midi.send(mido.Message("note_off", channel=3, note=int(reverb), velocity=int(delay)))
     # ^ uses note to send reverb value and velocity to send delay value
 
+def panning():
+    """
+    Send MIDI message with pan value.
+    """
+    midi.send(mido.Message("note_off", channel=4, note=pan))
+
 def distortion():
     """
     Toggle distortion.
     """
-    midi.send(mido.Message("note_off", channel=4))
+    midi.send(mido.Message("note_off", channel=5))
 
 def toggle_loop():
-    midi.send(mido.Message("note_off", channel=5))
+    midi.send(mido.Message("note_off", channel=6))
 
 # main gesture recognizer class
 class GestureRecognizer:
@@ -79,8 +87,6 @@ class GestureRecognizer:
         self.current_gestures = []
 
     def main(self):
-        global reverb, delay
-
         # gesture recognizer setup
         GestureRecognizer = mp.tasks.vision.GestureRecognizer
         GestureRecognizerOptions = mp.tasks.vision.GestureRecognizerOptions
@@ -126,7 +132,7 @@ class GestureRecognizer:
         """
         Process frame for hand landmarks and gestures
         """
-        global reverb, delay
+        global reverb, delay, pan
 
         frame = cv2.flip(frame, 1)
         rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
@@ -163,9 +169,13 @@ class GestureRecognizer:
                 pointer_x = min(max(0, pointer_x), frame.shape[1])
                 pointer_y = min(max(0, pointer_y), frame.shape[0])
 
-                # calculate reverb and delay
+                # middle finger knuckle (landmark 9)
+                middle_x = round(hand_landmarks.landmark[9].x * frame.shape[1])
+
+                # calculate reverb, delay, and pan
                 reverb = round(pointer_x / frame.shape[1] * 100, 1)
                 delay = round((1 - pointer_y / frame.shape[0]) * 100, 1)
+                pan = round(middle_x / frame.shape[1] * 100)
 
                 # gesture recognition
                 mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_frame)
@@ -224,11 +234,14 @@ class GestureRecognizer:
                         toggle_record()
 
                     if gesture_name == "Open_Palm":
+                        panning()
+                    """
                         if not undoing:
                             undoing = True
                             undo()
                     elif undoing:
                         undoing = False
+                    """
 
                     if gesture_name == "Pointing_Up":
                         secret_finger()
