@@ -30,8 +30,8 @@ Run `main.py` (make sure it's in the same directory as `gesture_recognizer.task`
 ## Features
 ### Hand Gestures
 * Peace sign - Toggle recording
-* Open palm - Undo most recent action
-* Pointing up - control reverb + delay
+* Open palm - Control panning
+* Pointing up - Control reverb + delay
   + Reverb is calculated from x-coordinate of tip of pointer finger (move right = increase)
   + Delay is calculated from y-coordinate of tip of pointer finger (move up = increase)
 * Rock sign - Toggle distortion
