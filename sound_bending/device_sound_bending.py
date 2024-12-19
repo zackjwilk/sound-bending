@@ -64,6 +64,12 @@ def update_reverb_delay(reverb, delay):
     mixer.setTrackVolume(2, reverb/100)
     mixer.setTrackVolume(3, delay/100)
 
+def panning(pan):
+    """
+    Set panning of Master track on mixer.
+    """
+    mixer.setTrackPan(0, pan)
+
 def distortion():
     """
     Toggle distortion.
@@ -100,14 +106,17 @@ def OnMidiMsg(event):
         if channel == 1:
             print("Toggle: " + str(event.note))
             toggle_record(event.note) # note of 0 = stop record, 1 = start record
-        elif channel == 2:
-            undo()
+        #elif channel == 2:
+            #undo()
         elif channel == 3:
             reverb = event.note
             delay = event.velocity
             update_reverb_delay(reverb, delay)
         elif channel == 4:
-            distortion()
+            pan = 2 * (event.note / 100) - 1
+            panning(pan)
         elif channel == 5:
+            distortion()
+        elif channel == 6:
             toggle_loop()
             record_cutoff()
