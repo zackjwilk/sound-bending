@@ -33,12 +33,12 @@ Click the circle button at the bottom of the "Input" track on the mixer to enabl
 
 ## Features
 ### Hand Gestures
-* Peace sign - Toggle recording (I was originally going to use a closed fist gesture to toggle recording to stay true to Imogen Heap's design but switched to the peace sign to avoid accidentally toggling recording by detecting a fist when transitioning between other gestures)
-* Open palm - Control panning
-* Pointing up - Control reverb + delay
+* **Peace sign - Toggle recording** (I was originally going to use a closed fist gesture to toggle recording to stay true to Imogen Heap's design but switched to the peace sign to avoid accidentally toggling recording by detecting a fist when transitioning between other gestures)
+* **Open palm - Control panning**
+* **Pointing up - Control reverb + delay**
   + Reverb is calculated from x-coordinate of tip of pointer finger (move right = increase)
   + Delay is calculated from y-coordinate of tip of pointer finger (move up = increase)
-* Rock sign - Toggle distortion
+* **Rock sign - Toggle distortion**
  
 For the pointing up gesture, the effects controlled by the x and y coordinates of the tip of the pointer finger can be customized by simply changing the plugins on tracks 2 and 3 on the mixer. The distortion effect can also be replaced.
 
