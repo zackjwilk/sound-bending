@@ -12,6 +12,8 @@ Install dependencies with pip:
 
 `pip install -r sound-bending/requirements.txt`
 
+If you run into errors installing rtmidi, try installing [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) first.
+
 Install:
 * [FL Studio](https://www.image-line.com/fl-studio/)
 * [loopMIDI](https://www.tobias-erichsen.de/software/loopmidi.html)
