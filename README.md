@@ -29,7 +29,7 @@ Activate Track 1 on the mixer as microphone input.
 
 Run `main.py` (make sure it's in the same directory as `gesture_recognizer.task`)
 
-Turn off the recording countdown in FL Studio by clicking the 3.2.1 button to the right of the record button and BPM counter. After recording, when prompted where you would like to record to, select "Record into playlist as audio clip," toggle "Do not ask this again," and proceed.
+Click the circle button at the bottom of the "Input" track on the mixer to enable recording from this track. Then, turn off the recording countdown in FL Studio by clicking the 3.2.1 button to the right of the record button and BPM counter. After recording, when prompted where you would like to record to, select "Record into playlist as audio clip," toggle "Do not ask this again," and proceed.
 
 ## Features
 ### Hand Gestures
