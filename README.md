@@ -12,7 +12,7 @@ Install dependencies with pip:
 
 `pip install -r sound-bending/requirements.txt`
 
-(if you run into errors installing rtmidi, try installing [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) first)
+(if you run into issues installing rtmidi, try installing [Microsoft C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/) first)
 
 Install:
 * [FL Studio](https://www.image-line.com/fl-studio/)
