@@ -38,7 +38,8 @@ Click the circle button at the bottom of the "Input" track on the mixer to enabl
 * **Pointing up - Control reverb + delay**
   + Reverb is calculated from x-coordinate of tip of pointer finger (move right = increase)
   + Delay is calculated from y-coordinate of tip of pointer finger (move up = increase)
-* **Rock sign - Toggle distortion**
+* **Rock sign - Toggle vocoder**
+  + To change the chord used for the vocoder, click the Vocoder track in the mixer, open Vocodex, and select the keys from the piano at the bottom.
  
 For the pointing up gesture, the effects controlled by the x and y coordinates of the tip of the pointer finger can be customized by simply changing the plugins on tracks 2 and 3 on the mixer. The distortion effect can also be replaced.
 
