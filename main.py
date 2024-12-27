@@ -26,7 +26,7 @@ NUM_HANDS = 1
 # globals
 recording = False
 undoing = False
-distorting = False
+vocoding = False
 reverb = 0
 delay = 0
 pan = 0
@@ -69,11 +69,11 @@ def panning():
     """
     Send MIDI message with pan value.
     """
-    midi.send(mido.Message("note_off", channel=4, note=pan))
+    midi.send(mido.Message("note_off", channel=4, note=int(pan)))
 
-def distortion():
+def vocoder():
     """
-    Toggle distortion.
+    Toggle vocoder.
     """
     midi.send(mido.Message("note_off", channel=5))
 
@@ -175,7 +175,7 @@ class GestureRecognizer:
                 # calculate reverb, delay, and pan
                 reverb = round(pointer_x / frame.shape[1] * 100, 1)
                 delay = round((1 - pointer_y / frame.shape[0]) * 100, 1)
-                pan = round(middle_x / frame.shape[1] * 100)
+                pan = round(middle_x / frame.shape[1] * 100, 1)
 
                 # gesture recognition
                 mp_image = mp.Image(image_format=mp.ImageFormat.SRGB, data=rgb_frame)
@@ -193,7 +193,7 @@ class GestureRecognizer:
         gesture_names = {
             "None": "",
             "Closed_Fist": "fist",
-            "Open_Palm": "open_palm",
+            "Open_Palm": f"x={pan}",
             "Pointing_Up": f"x={reverb}, y={delay}",
             "Thumb_Down": "boooooo",
             "Thumb_Up": "yayyyyyy",
@@ -217,7 +217,7 @@ class GestureRecognizer:
         """
         Callback for gesture recognition results.
         """
-        global recording, undoing, distorting
+        global recording, undoing, vocoding
 
         with self.lock:
             self.current_gestures = []
@@ -247,11 +247,11 @@ class GestureRecognizer:
                         secret_finger()
 
                     if gesture_name == "ILoveYou":
-                        if not distorting:
-                            distorting = True
-                            distortion()
-                    elif distorting:
-                        distorting = False
+                        if not vocoding:
+                            vocoding = True
+                            vocoder()
+                    elif vocoding:
+                        vocoding = False
 
                     toggle_loop()
 
