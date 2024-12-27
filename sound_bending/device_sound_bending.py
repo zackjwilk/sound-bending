@@ -70,9 +70,9 @@ def panning(pan):
     """
     mixer.setTrackPan(0, pan)
 
-def distortion():
+def vocoder():
     """
-    Toggle distortion.
+    Toggle vocoder.
     """
     mixer.enableTrack(4)
 
@@ -116,7 +116,7 @@ def OnMidiMsg(event):
             pan = 2 * (event.note / 100) - 1
             panning(pan)
         elif channel == 5:
-            distortion()
+            vocoder()
         elif channel == 6:
             toggle_loop()
             record_cutoff()
