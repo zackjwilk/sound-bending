@@ -1,6 +1,7 @@
 # sound-bending
 ---
 **INSPIRED BY THE GREAT IMOGEN HEAP'S Mi.Mu GLOVES!!!**
+**ALSO PRETTY GLITCHY PLEASE CUT ME SLACK I'M TRYING MY BEST!!!**
 
 ---
 ## Setup
