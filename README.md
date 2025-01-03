@@ -3,7 +3,7 @@
 **INSPIRED BY THE GREAT IMOGEN HEAP'S Mi.Mu GLOVES!!!**\
 **CAN BE A LITTLE GLITCHY; PLEASE CUT ME SOME SLACK I'M TRYING MY BEST!!!**\
 \
-**WATCH DEMO [HERE](https://www.instagram.com/reel/DEJJdzZuyFT/?next=%2F)!!!**
+**WATCH DEMO [HERE](https://www.instagram.com/reel/DEJJdzZuyFT/?next=%2F)**
 
 ---
 ## Setup
